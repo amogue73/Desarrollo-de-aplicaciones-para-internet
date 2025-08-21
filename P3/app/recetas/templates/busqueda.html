@@ -1,0 +1,27 @@
+<!-- Esta plantilla consiste en una tabla de que agrega a la plantilla base
+y que muestra todas las recetas si no hay una búsqueda, o las recetas
+que coincidan con la búsqueda realizada-->
+
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container" >
+
+    <table class="table {{ text_color1 }}" style="text-align:center" id="tablaRecetas" >
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th></th>
+            </tr>
+        </thead>
+        {% for receta in recetas %}
+        <tr>
+            <td class = "{{ text_color2 }}"><a href="detalles/?id={{ receta.id }}">{{ receta.nombre }}</a></td>
+            <td><img src="{{ receta.foto.url }}" height="250"></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+{% endblock %}

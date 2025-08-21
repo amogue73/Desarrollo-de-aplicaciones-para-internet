@@ -1,0 +1,3 @@
+# requirements.txt
+django==4.1.1
+django-debug-toolbar

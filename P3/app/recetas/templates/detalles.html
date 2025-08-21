@@ -1,0 +1,48 @@
+<!-- Esta plantilla muestra los detalles de una receta:
+el nombre, los ingredientes que lleva, la foto y la preparación-->
+
+{% extends "home.html" %}
+
+{% block content %}
+<div></div>
+<div class="container" >
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-6"><h2 class = "{{ text_color1 }}">{{ receta.nombre }}</h2>
+            </div>
+            <div class="col-6">
+                {% if user.is_superuser %}
+                <a class="btn {{ bg_color1 }} {{ text_color2 }}" href="/receta/edit/?id={{ id }}"> Editar receta </a>
+                <a class="btn {{ bg_color1 }} {{ text_color2 }}" href="/receta/delete/?id={{ id }}"> Borrar receta </a>
+                {% endif %}
+            </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-6 {{ text_color1 }}">
+            <h3 class = "{{text_color1}}">Ingredientes:</h3><br />
+            {% for ingrediente in ingredientes %}
+            {{ingrediente.nombre}} {{ingrediente.cantidad}} {{ingrediente.unidades}}<br />
+            {% endfor %}  
+          </div>
+          <div class="col-6"><img src="{{ receta.foto.url }}" height="400"></div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="container text-center {{text_color1}}">
+        <h3>Preparación:</h3><br />
+        {{receta.preparación}}
+      </div>
+
+      {{ingrediente.receta.id}}
+
+
+
+
+</div>
+
+
+{% endblock %}

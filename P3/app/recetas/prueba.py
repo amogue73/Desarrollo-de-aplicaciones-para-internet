@@ -1,0 +1,1 @@
+print(("Espresso Martini".upper()).find("Martini".upper()))

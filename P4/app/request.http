@@ -1,0 +1,54 @@
+### obteniendo todas las recetas
+GET http://localhost:5000/api/recipes
+
+### creando una nueva receta
+POST http://localhost:5000/api/recipes
+Content-Type: application/json
+
+{
+    "name": "A midsummernight dream 3",
+    "instructions": [
+      "Mix the strawberrys in a blender Pour it together with the vodka,kirch and strawberry liquer over ice in a shaker",
+      "Shake well and pour in a highballglass",
+      "Fill up with the Russchian water"
+    ],
+    "ingredients": [
+      { "name": "Vodka", "quantity": { "quantity": "3", "unit": "oz" } },
+      { "name": "Kirschwasser", "quantity": { "quantity": "2", "unit": "oz" } },
+      {
+        "name": "Strawberry liqueur",
+        "quantity": { "quantity": "2", "unit": "tsp" }
+      },
+      { "name": "Strawberries", "quantity": { "quantity": "6", "unit": null } },
+      { "name": "Schweppes Russchian" }
+    ],
+    "slug": "a-midsummernight-dream-2"
+}
+
+### recetas con vodka
+GET http://localhost:5000/api/recipes?con=vodka
+
+
+###
+GET http://localhost:5000/recetas_con/vodka
+
+
+###
+GET http://localhost:5000/recetas_compuestas_de/2/ingredientes
+
+###
+PUT http://localhost:5000/api/recipes/63ab0aab86d5f2546f797f49
+Content-Type: application/json
+
+{
+    "name": "A midsummernight dream 3",
+    "slug": "a-midsummernight-dream-3"
+
+}
+###
+GET http://localhost:5000/recetas_de/cuba_libre
+###
+
+DELETE http://localhost:5000/api/recipes/5f7daa168ec9dfb536781b0b
+
+###

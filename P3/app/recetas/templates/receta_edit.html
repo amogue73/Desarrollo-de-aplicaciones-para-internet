@@ -1,0 +1,11 @@
+<!--plantilla que muestra un formulario que sirve tanto para editar una receta
+como para agregar una nueva-->
+
+{% extends 'home.html' %}
+
+{% block content %}
+    <form method="POST" class="post-form {{ bg_color1 }} {{ text_color1 }}" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default {{ bg_color1 }} {{ text_color1 }}" data-bs-toggle='modal' data-bs-target='#exampleModal'>Save</button>
+    </form>
+{% endblock %}

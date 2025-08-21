@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Contenedor principal de la página -->
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-4">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addRecipeModal">Nueva receta</button>
+        </div>
+        <div class="col-4">
+            <button type="button" onclick="cambiarLetra()" class="btn btn-primary btn-sm">Cambiar letra</button>     
+        </div>
+        <div class="col-4">
+            <button type="button" onclick="cambiarModo()" class="btn btn-primary btn-sm">Cambiar modo</button>     
+        </div>
+    </div>
+    <table class="table table-sm">
+        <thead>
+          <tr>
+            <th>N</th>
+            <th>Nombre</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+      
+        </tbody>
+    </table>
+</div>
+  
+
+<!-- Modal que muestra los detalles de una receta -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+</div>
+
+<!-- Modal que sirve para añadir una nueva receta -->
+<div class="modal fade" id="addRecipeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva receta</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <label for="nombre">Nombre:</label><br>
+            <textarea class="texto" cols="30" rows="2" id="nombre" name="nombreReceta" style="resize:none"></textarea><br>
+            <label for="preparacion">Instrucciones:</label><br>
+            <textarea class="texto" cols="30" rows="5" id="preparacion" name="preparacion" style="resize:none"></textarea>
+
+        </div>
+
+        <div class="modal-body" id="ingredientes">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#addIngredientModal">Nuevo ingrediente</button>
+            <button onclick="nuevaReceta()" type="button" class="btn btn-primary" data-bs-dismiss="modal" id="saveButton">Confirmar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal que sirve para añadir un ingrediente nuevo a la receta que se está añadiendo -->
+<div class="modal fade" id="addIngredientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo ingrediente</h1>
+        </div>
+        <div class="modal-body">
+            <label for="nombre">Nombre:</label><br>
+            <textarea class ="texto ing" cols="30" rows="2" id="nombre" name="nombreIngrediente" style="resize:none"></textarea><br>
+            <label for="cantidad">Quantity:</label><br>
+            <textarea class ="texto ing" cols="30" rows="2" id="cantidad" name="cantidad" style="resize:none"></textarea><br>
+            <label for="unidades">Units:</label><br>
+            <textarea class ="texto ing" cols="30" rows="2" id="unidades" name="unidades" style="resize:none"></textarea>          
+
+        </div>
+        <div class="modal-footer">
+            <button onclick="nuevoIngrediente()" type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal">Confirmar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal que sirve para editar una receta -->
+<div class="modal fade" id="editRecipeModal" tabindex="-1" aria-labelledby="tituloEditRecipeModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="tituloEditRecipeModal"></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <label for="nombre">Nombre:</label><br>
+            <textarea class="texto" cols="30" rows="2" id="nombre" name="nombreEditReceta" style="resize:none"></textarea><br>
+            <label for="preparacion">Instrucciones:</label><br>
+            <textarea class="texto" cols="30" rows="5" id="preparacion" name="editPreparacion" style="resize:none"></textarea>
+
+        </div>
+
+        <div class="modal-body" id="ingredientesEdit">
+
+        </div>
+
+        <div class="modal-footer" id="botonEditReceta">
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal que muestra la información de un error que ha ocurrido a modo de aviso -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="tituloErrorModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="tituloErrorModal">Error</h1>
+        </div>
+        <div class="modal-body" id="errorModalBody">
+
+           
+        </div>
+
+        <div class="modal-footer" id="errorModalBoton">
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal que sirve para confirmar que se quiere eliminar una receta -->
+<div class="modal fade" id="borrarRecetaModal" tabindex="-1" aria-labelledby="tituloBorrarRecetaModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="tituloBorrarRecetaModal"></h1>
+        </div>
+        <div class="modal-body" id="errorModalBody">
+            ¿Seguro que deseas borrar la receta?           
+        </div>
+
+        <div class="modal-footer" id="botonBorrarReceta">
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- documento de javascript de la página -->
+<script src="/static/main.js"></script>
+
+
+{% endblock %}
